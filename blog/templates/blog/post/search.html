@@ -7,7 +7,7 @@
         <h1>Posts containing "{{ query }}"</h1>
         <h3>
             {% with results.count as total_results %}
-                Found {{ total_results }} results {{ total_results|pluralize }}
+                Found {{ total_results }} results {% comment "" %}{{ total_results|pluralize }}{% endcomment %}
             {% endwith %}
         </h3>
         {% for post in results %}
