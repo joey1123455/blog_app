@@ -84,12 +84,27 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
+DB_NAME = env('POSGRES_USER')
+DB_PASS = env('POSGRES_PASSWORD')
+DB_USE = env('DB_USE')
+
+if DB_USE == 'postgres':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'blog',
+            'USER': DB_NAME,
+            'PASSWORD': DB_PASS,
+        }
+    }
+
+elif DB_USE == 'sqlite':
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
 
 
 # Password validation

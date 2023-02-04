@@ -2,3 +2,6 @@
 .env
 venv
 .venv
+
+mysite_data.json
+mysite_data_utf-8.json
