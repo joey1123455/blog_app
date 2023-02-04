@@ -16,3 +16,6 @@ A blog website built with django.
         RSS Feed
 
     Third party installations 
+        Taggit
+
+
