@@ -7,6 +7,7 @@ from django.views.decorators.http import require_POST
 from django.db.models import Count
 from django.contrib.postgres.search import SearchVector
 from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank
+from django.contrib.postgres.search import TrigramSimilarity
 from taggit.models import Tag
 
 from .models import *
@@ -119,6 +120,11 @@ def post_search(request):
                 search=search_vector,
                 rank=SearchRank(search_vector, search_query)
             ).filter(search=search_query).order_by('-rank')
+
+            if len(results) == 0:
+                results = Post.published.annotate(
+                similarity=TrigramSimilarity('title', query),
+                ).filter(similarity__gt=0.1).order_by('-similarity')
 
     context = {
         'form': form,
